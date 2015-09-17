@@ -4,16 +4,29 @@
 
 Expanation on the concepts of git
 
-***
-
 ## What is GitHub
 
 Explanation of what GitHub is and does
 
-***
 
 ## What The Hell Did We Make You Do In `hw0`
 Walkthrough of what we did to in `setup.sh`, including changing remotes. Demonstration of what happened manually (step by step) and why homework pulling works the way it does.
+
+## Submissions and New Homework Instructions
+
+### To Submit
+```bash
+$ git add --all
+$ git commit -m "whatever message"
+$ git push origin master
+```
+
+###To Get New Homework (and Homework Solutions)
+ ```bash
+$ git pull upstream master
+ ```
+
+**Note that when you get new homework, you pull from  `upstream `. When you submit, you push to  `origin `.**
 
 ***
 
