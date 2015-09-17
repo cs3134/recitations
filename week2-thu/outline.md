@@ -31,13 +31,19 @@ Inheritance vs Interfaces: What's the difference between the keywords "extends" 
 * Inheritance example: Superclass "Animal," instance variables: type, name, age. Subclass "Dog" w/ method "bark()." Code shared traits/methods ONCE, and in sublcass we only have to put what's unique to that type.
 
 * Interfaces example: Interface "ModeOfTransportation." Classes that implement ModeOfTransportation: Train, Plane, FerryBoat, Car. All have setDestination() boardPassengers(), depart(), changeSpeed(int newSpeed), arrive(), disembarkPassengers(), etc etc.
-  * Now, we can do things like make a Travel class that has methods like goToDestination(String destination) and returnHome(). This removes SO MUCH duplicate code b/c we don't need a separate goToDestination() inside Plane, FerryBoat, etc.
+  * Now, we could make a Travel class that has methods like goToDestination(String destination) and returnHome(). This removes SO MUCH duplicate code b/c we don't need a separate goToDestination() inside Plane, FerryBoat, etc.
+  * All other future code we make involving travel can now just do "myFerryBoat.goToDestination()," even though the goToDestination() method isn't in the FerryBoat class.
+
 
 Private public method idiom (public method accessing private method)
 
 ## Abstract Data Types and Data Structures
 
-What is ADT vs data structure. Don't see myself taking more than 2 min here.
+ADT Examples: Stack, queue, etc.
+
+DataStructures: LinkedList, Tree, arrays
+
+An abstract data type is kind of like an interface. All stacks behave in a certain way. We must be able to pop/push. Always FIFO. But, I could implement a stack in many ways--LinkedList, array. Some data structures make more sense for implementing a given ADT, but nonetheless the ADT could be implemented in many ways.
 
 ## Linked List
 
