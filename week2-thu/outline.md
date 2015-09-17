@@ -67,7 +67,7 @@ The above will be a singly linked list. Talk about singly list deletion and prob
     n.next.prev = n.prev;
     n.prev.next = n.next; 
 
-* With Singly-Linked list, we have to go through the list until we find the node whose "next" is n, and then change references.
+  * With Singly-Linked list, we'd have to go through the list until we hit the node whose "next" is n, and then change references.
 
 * BUT delete(T x) is still O(n) for double-linked lists because we need to find the node whose data is "x"
 
@@ -79,4 +79,15 @@ The above will be a singly linked list. Talk about singly list deletion and prob
 
 ### Common Problems and Strategies
 
-Circular linked list, finding mid point in a singly linked list / doubly linked list, deletion in singly linked list in single traversal etc all sorts of stupid interview questions.
+####Circular linked list
+Last Node's next is the first node
+* Don't have to worry about moving off the end of the list (null pointers). It's always okay to derefence node.next.data 
+* When we insert and delete, it's all the same. No first/list problems.
+* Kind of cool: Let's say my iterator object is at the last item and I want to now go to the second item. We can just do "iterator.next(); iterator.next();" without making a new iterator.
+
+
+####Finding mid point in a singly linked list / doubly linked list (when you don't know size)
+* Singly-Linked: i = head; j = head; increment i every time, j every other time until i hits the end of the list
+* Doubly-Linked: i = head; j = tail; wait till they converge
+
+####Deletion in singly linked list in single traversal etc all sorts of stupid interview questions.
