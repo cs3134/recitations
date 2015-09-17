@@ -1,5 +1,5 @@
 # Outline for Week 2 Friday Recitation
-
+***
 ## What is Git
 
 Expanation on the concepts of git
