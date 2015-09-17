@@ -2,12 +2,12 @@
 ***
 ## What is Git
 
-Expanation on the concepts of git
+Source code version control system.
+* Great for teams
+* Great for keeping track of changes/undoing mistakes/YOU WIL NEVER ACCIDENTALLY REMOVE EVERYTHING AND NEVER BE ABLE TO GET IT BACK!!
 
 ## What is GitHub
-
-Explanation of what GitHub is and does
-
+Git repository hosting service with a great web-based GUI (!!). We can controll access, teams can track bugs, put in feature requests, etc.
 
 ## What The Hell Did We Make You Do In `hw0`
 Walkthrough of what we did to in `setup.sh`, including changing remotes. Demonstration of what happened manually (step by step) and why homework pulling works the way it does.
@@ -55,8 +55,6 @@ Inheritance vs Interfaces: What's the difference between the keywords "extends" 
 
 * Interfaces example: Interface "ModeOfTransportation." Classes that implement ModeOfTransportation: Train, Plane, FerryBoat, Car. All have setDestination() boardPassengers(), depart(), changeSpeed(int newSpeed), arrive(), disembarkPassengers(), etc etc.
   * Now, we could make a Travel class that has methods like goToDestination(String destination) and returnHome(). This removes SO MUCH duplicate code b/c we don't need a separate goToDestination() inside Plane, FerryBoat, etc.
-  * All other future code we make involving travel can now just do "myFerryBoat.goToDestination()," even though the goToDestination() method isn't in the FerryBoat class.
-
 
 Private public method idiom (public method accessing private method)
 
