@@ -43,15 +43,16 @@ ADT Examples: Stack, queue, etc.
 
 DataStructures: LinkedList, Tree, arrays
 
-An abstract data type is kind of like an interface. All stacks behave in a certain way. We must be able to pop/push. Always FIFO. But, I could implement a stack in many ways--LinkedList, array. Some data structures make more sense for implementing a given ADT, but nonetheless the ADT could be implemented in many ways.
+An abstract data type is kind of like an theoretical interface. All stacks must be able to pop/push, and are always FIFO. But, I could implement a stack use many data structures--LinkedList, array,etc. Some data structures will make more sense for implementing a given ADT, but nonetheless the ADT could probably be implemented in many ways.
 
 ## Linked List
 
 Code a linked list from scratch yay! Start with
 
-- `LinanNode.java`
-- `LinanList.java`
-- `LinanIterator.java`
+- `Node.java`
+- `List.java`
+- `Iterator.java`
+- 'BetterList.java'
 
 Introduce idea of private classes and hiding implementation details. User shouldn't have access to Node etc. Merge into `LinanList.java`
 
@@ -61,7 +62,20 @@ The above will be a singly linked list. Talk about singly list deletion and prob
 
 ### Doubly Linked List
 
-Talk about doubly linked list, advantage, brief sketch of homework.
+* deleteNode(Node n) is O(1)
+  * All we need to do is:
+    n.next.prev = n.prev;
+    n.prev.next = n.next; 
+
+* With Singly-Linked list, we have to go through the list until we find the node whose "next" is n, and then change references.
+
+* BUT delete(T x) is still O(n) for double-linked lists because we need to find the node whose data is "x"
+
+* Reverse is kind of more fun: just swap each node's next and prev (remember to use a temp!). Still O(n) but easier to think about and doesn't make you draw a bunch of absurd diagrams to make sure you're not botching it (but still, it would definitely be a good idea for you to try writing pseudocode for HOW you would do this for a singly-linked list b/c it would be great partice for the class/interviews).
+
+* Of course, we now have more modifications we need to make when we insert/mess with the list, but it's generally worth it.
+
+* Does take up more space b/c we have a "prev" reference.
 
 ### Common Problems and Strategies
 
