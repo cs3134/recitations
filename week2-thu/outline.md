@@ -52,7 +52,7 @@ ADT Examples: Stack, queue, etc.
 
 DataStructures: LinkedList, Tree, arrays
 
-An abstract data type is kind of like an theoretical interface. All stacks must be able to pop/push, and are always FIFO. But, I could implement a stack use many data structures--LinkedList, array,etc. Some data structures will make more sense for implementing a given ADT, but nonetheless the ADT could probably be implemented in many ways.
+An abstract data type is kind of like a theoretical interface. All stacks must be able to pop/push, and are always FIFO. But, I could implement a stack use many data structures--LinkedList, array,etc. Some data structures will make more sense for implementing a given ADT, but nonetheless the ADT could probably be implemented in many ways.
 
 ***
 
