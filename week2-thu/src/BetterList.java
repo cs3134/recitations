@@ -1,16 +1,16 @@
 /**
- * LinkedList class implements a singly-linked list. Adapted from Weiss, Data
+ * BetterList class implements a singly-linked list. Adapted from Weiss, Data
  * Structures and Algorithm Analysis in Java. 3rd ed.
- * http://users.cis.fiu.edu/~weiss/dsaajava3/code/LinkedList.java
+ * http://users.cis.fiu.edu/~weiss/dsaajava3/code/BetterList.java
  */
-public class LinkedList<T> implements Iterable<T> {
+public class BetterList<T> implements Iterable<T> {
 
 	private int size;
 	private Node<T> beginMarker;
 	private Node<T> endMarker;
 
 	/**
-	 * This is the doubly-linked list node class.
+	 * This is the singly-linked list node class.
 	 */
 	private class Node<NodeT> {
 		public Node(NodeT d, Node<NodeT> n) {
@@ -23,9 +23,9 @@ public class LinkedList<T> implements Iterable<T> {
 	}
 
 	/**
-	 * Construct an empty LinkedList.
+	 * Construct an empty BetterList.
 	 */
-	public LinkedList() {
+	public BetterList() {
 		clear();
 	}
 
@@ -190,15 +190,15 @@ public class LinkedList<T> implements Iterable<T> {
 	 * @return an iterator positioned prior to the first element.
 	 */
 	public java.util.Iterator<T> iterator() {
-		return new LinkedListIterator();
+		return new BetterListIterator();
 	}
 
 	/**
-	 * This is the implementation of the LinkedListIterator. It maintains a
+	 * This is the implementation of the BetterListIterator. It maintains a
 	 * notion of a current position and of course the implicit reference to the
-	 * LinkedList.
+	 * BetterList.
 	 */
-	private class LinkedListIterator implements java.util.Iterator<T> {
+	private class BetterListIterator implements java.util.Iterator<T> {
 		private Node<T> prev = beginMarker;
 		private Node<T> current = beginMarker.next;
 		private boolean okToRemove = false;
@@ -222,7 +222,7 @@ public class LinkedList<T> implements Iterable<T> {
 			if (!okToRemove)
 				throw new IllegalStateException();
 
-			LinkedList.this.remove(prev);
+			BetterList.this.remove(prev);
 			// ensures that remove() cannot be called twice during a single step
 			// in iteration
 			okToRemove = false;
@@ -233,7 +233,7 @@ public class LinkedList<T> implements Iterable<T> {
 	 * Test the linked list.
 	 */
 	public static void main(String[] args) {
-		LinkedList<Integer> lst = new LinkedList<>();
+		BetterList<Integer> lst = new BetterList<>();
 
 		for (int i = 0; i < 10; i++)
 			lst.add(i);

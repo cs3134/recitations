@@ -1,18 +1,18 @@
 /**
  * Subclass DataStructuresStudents
- * Extendeds LinkedList class, which is adapted from Weiss, Data Structures and
+ * Extendeds BetterList class, which is adapted from Weiss, Data Structures and
  * Algorithm Analysis in Java. 3rd ed.
- * http://users.cis.fiu.edu/~weiss/dsaajava3/code/SimpleLinkedList.java
+ * http://users.cis.fiu.edu/~weiss/dsaajava3/code/SimpleBetterList.java
  * @author annalawson
  */
-public class DataStructuresStudents extends LinkedList<Student> {
+public class DataStructuresStudents extends BetterList<Student> {
   
   /**
    * @param uni of the student you want to find
    * @return the student
    */
   public Student lookupByUni(String uni) {
-    //Use an iterator to go through list since private LinkedList variables
+    //Use an iterator to go through list since private BetterList variables
     //cannot be accessed in subclass.
     java.util.Iterator<Student> iterator = iterator();
     Student currentStudent;

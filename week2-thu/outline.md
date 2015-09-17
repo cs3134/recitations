@@ -81,7 +81,23 @@ Code a linked list from scratch yay! Start with
 - `Iterator.java`
 - `BetterList.java`
 
-Introduce idea of private classes and hiding implementation details. User shouldn't have access to Node etc. Merge into `BetterList.java`
+Private Classes: Why does HW1 have classes inside of classes?
+- Encapsulation, hiding implementation details, best representing the theoretical structure. Node makes no sense outside of the context of linked lists.
+- Objects can end up in bad states. As three separate files, we need to make variables or methods public that really shouldn't be public. Ex: LinkedList needs to get and modify Node's data and next instance variables. Iterator needs to access the head of the linkedlist, and also needs to access that node's next and data in order to iterate through the list and return each node's data. So, we either have to make these instance variables in Node and LinkedList public or use setters and getters. Setters and getters could probably help avoid some disastrous situations, but not all, because the user REALLY shouldn't have access to all of this functionality. They shouldn't be able to access to Node etc. Then, people can do disastrous things like:
+
+```bash
+Node head = myList.getHead();
+Node anotherNode = head.getNext(); 
+for (int i = 0; i < 5; i++) 
+  anotherNode = anotherNode.getNext();
+head.setNext(anotherNode); // OOPS. Now list size is completely wrong!! off by 5. this break SO MUCH OTHER CODE.
+``` 
+
+All of these methods above would have to be public (Iterator needs getHead to access list items, list and iterator both need to getNext() of a node, and also need to setNext in order to add/remove items). BUT THIS CAN CREATE HUGE PROBLEMS. List doesn't even know that it changed.
+
+So, we merge into `BetterList.java`.
+
+
 
 ### Singly Linked List
 
