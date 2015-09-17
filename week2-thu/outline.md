@@ -76,32 +76,30 @@ An abstract data type is kind of like a theoretical interface. All stacks must b
 
 Code a linked list from scratch yay! Start with
 
-- `Node.java`
-- `List.java`
-- `Iterator.java`
+- `BadNode.java`
+- `BadList.java`
+- `Iterator.java (coming soon)`
 - `BetterList.java`
 
 Private Classes: Why does HW1 have classes inside of classes?
-- Encapsulation, hiding implementation details, best representing the theoretical structure. Node makes no sense outside of the context of linked lists.
-- Objects can end up in bad states. As three separate files, we need to make variables or methods public that really shouldn't be public. Ex: LinkedList needs to get and modify Node's data and next instance variables. Iterator needs to access the head of the linkedlist, and also needs to access that node's next and data in order to iterate through the list and return each node's data. So, we either have to make these instance variables in Node and LinkedList public or use setters and getters. Setters and getters could probably help avoid some disastrous situations, but not all, because the user REALLY shouldn't have access to all of this functionality. They shouldn't be able to access to Node etc. Then, people can do disastrous things like:
+* Encapsulation, hiding implementation details, best representing the theoretical structure. Node makes no sense outside of the context of linked lists.
+* Objects can end up in bad states. As independent public classes, we either need to make a lot of instance variables public (bad idea) or make public getters/setters for those instance variables. Setters and getters could probably help avoid some disastrous situations, but not all, because the user REALLY shouldn't have access to all of this functionality. They shouldn't be able to access to Node etc. Let's look at what variables and/or functions now need to be public:
 
+  * LinkedList needs to get and modify Node's data and next instance variables. So now getData() setData(), etc etc are public.
+  * Iterator somehow needs to access the head of the linkedlist.
+
+  * Now look at a disaster that could ensue if the user had access to this stuff:
 ```bash
-Node head = myList.getHead();
-Node anotherNode = head.getNext(); 
+//Assume list has more than five things in it
+Node listHead = myList.getHead();
+Node anotherNode = listHead.getNext(); 
 for (int i = 0; i < 5; i++) 
   anotherNode = anotherNode.getNext();
-head.setNext(anotherNode); // OOPS. Now list size is completely wrong!! off by 5. this break SO MUCH OTHER CODE.
+listHead.setNext(anotherNode); // OOPS. We just lost a bunch of nodes, and now list size is completely wrong!! This breaks SO MUCH OTHER CODE.
 ``` 
-
-All of these methods above would have to be public (Iterator needs getHead to access list items, list and iterator both need to getNext() of a node, and also need to setNext in order to add/remove items). BUT THIS CAN CREATE HUGE PROBLEMS. List doesn't even know that it changed.
 
 So, we merge into `BetterList.java`.
 
-
-
-### Singly Linked List
-
-The above will be a singly linked list. Talk about singly list deletion and problems. Circular list etc.
 
 ### Doubly Linked List
 
