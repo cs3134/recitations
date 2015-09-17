@@ -6,8 +6,8 @@
 public class BadList<T> {
 
 	private int size;
-	private Node<T> beginMarker;
-	private Node<T> endMarker;
+	private BadNode<T> beginMarker;
+	private BadNode<T> endMarker;
 
 	/**
 	 * Construct an empty BadList.
@@ -21,8 +21,8 @@ public class BadList<T> {
 	 * and end marker.
 	 */
 	public void clear() {
-		beginMarker = new Node<T>(null, null);
-		endMarker = new Node<T>(null, null);
+		beginMarker = new BadNode<T>(null, null);
+		endMarker = new BadNode<T>(null, null);
 		beginMarker.setNext(endMarker);
 		size = 0;
 	}
@@ -53,8 +53,8 @@ public class BadList<T> {
 	 * @throws IndexOutOfBoundsException if index is not between lower and
 	 * upper, inclusive.
 	 */
-	private Node<T> getNode(int idx, int lower, int upper) {
-		Node<T> p;
+	private BadNode<T> getNode(int idx, int lower, int upper) {
+		BadNode<T> p;
 
 		if (idx < lower || idx > upper)
 			throw new IndexOutOfBoundsException("getNode index: " + idx + ";"
@@ -72,7 +72,7 @@ public class BadList<T> {
 	 * @return internal node corresponding to idx.
 	 * @throws IndexOutOfBoundsException if index is out of range.
 	 */
-	private Node<T> getNode(int idx) {
+	private BadNode<T> getNode(int idx) {
 		return getNode(idx, 0, size() - 1);
 	}
 
@@ -94,7 +94,7 @@ public class BadList<T> {
 	 * @throws IndexOutOfBoundsException if index is out of range.
 	 */
 	public T set(int idx, T newVal) {
-		Node<T> p = getNode(idx);
+		BadNode<T> p = getNode(idx);
 		T oldVal = p.getData();
 		p.setData(newVal);
 		return oldVal;
@@ -107,8 +107,8 @@ public class BadList<T> {
 	 * @param x any object.
 	 * @throws IndexOutOfBoundsException if idx < 0 or idx > size()
 	 */
-	private void addAfter(Node<T> p, T x) {
-		Node<T> newNode = new Node<T>(x, p.getNext());
+	private void addAfter(BadNode<T> p, T x) {
+		BadNode<T> newNode = new BadNode<T>(x, p.getNext());
 		p.setNext(newNode);
 		size++;
 	}
@@ -121,7 +121,7 @@ public class BadList<T> {
 	 * @throws IndexOutOfBoundsException if idx < 0 or idx > size()
 	 */
 	public void add(int idx, T x) {
-        addAfter(getNode(idx-1, -1, size()-1), x);
+            addAfter(getNode(idx-1, -1, size()-1), x);
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class BadList<T> {
 	 * @param x any object.
 	 */
 	public void add(T x) {
-		add(size(), x);
+	    add(size(), x);
 	}
 
 	/**
@@ -139,8 +139,8 @@ public class BadList<T> {
 	 * @param p the Node containing the object.
 	 * @return the item was removed from the collection.
 	 */
-	private T remove(Node<T> p) {
-		Node<T> current = beginMarker;
+	private T remove(BadNode<T> p) {
+		BadNode<T> current = beginMarker;
 		//Look through to find the node whose next is p
 		while (current.getNext().getData() != null &&
 				current.getNext().getData() != p.getData()) {
@@ -166,7 +166,7 @@ public class BadList<T> {
 	 */
 	public String toString() {
 		StringBuilder sb = new StringBuilder("[ ");
-		Node<T> current = beginMarker.getNext();
+		BadNode<T> current = beginMarker.getNext();
                 for (int i = 0; i < size(); i++) {
 		    sb.append(current.getData() + " ");
                     current = current.getNext();
