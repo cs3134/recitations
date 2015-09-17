@@ -7,7 +7,7 @@ Source code version control system.
 * Great for keeping track of changes/undoing mistakes/YOU WIL NEVER ACCIDENTALLY REMOVE EVERYTHING AND NEVER BE ABLE TO GET IT BACK!!
 
 ## What is GitHub
-Git repository hosting service with a great web-based GUI (!!). We can controll access, teams can track bugs, put in feature requests, etc.
+Git repository hosting service with a great web-based GUI (!!). We can control access, teams can track bugs, put in feature requests, etc.
 
 ## What The Hell Did We Make You Do In `hw0`
 Walkthrough of what we did to in `setup.sh`, including changing remotes. Demonstration of what happened manually (step by step) and why homework pulling works the way it does.
