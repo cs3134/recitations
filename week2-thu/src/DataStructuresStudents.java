@@ -7,32 +7,32 @@
  */
 public class DataStructuresStudents extends BetterList<Student> {
   
-  /**
-   * @param uni of the student you want to find
-   * @return the student
-   */
-  public Student lookupByUni(String uni) {
-    //Use an iterator to go through list since private BetterList variables
-    //cannot be accessed in subclass.
-    java.util.Iterator<Student> iterator = iterator();
-    Student currentStudent;
-  
-    while (iterator.hasNext()) {
-      currentStudent = iterator.next();
-      if (currentStudent.getUni().equals(uni)){
-        return currentStudent;
-      }
+    /**
+     * @param uni of the student you want to find
+     * @return the student
+     */
+    public Student lookupByUni(String uni) {
+        //Use an iterator to go through list since private BetterList variables
+        //cannot be accessed in subclass.
+        java.util.Iterator<Student> iterator = iterator();
+        Student currentStudent;
+    
+        while (iterator.hasNext()) {
+            currentStudent = iterator.next();
+            if (currentStudent.getUni().equals(uni)){
+                return currentStudent;
+            }  
+        } 
+        return null;
     }
-    return null;
-  }
   
-  public static void main(String[] args) {
-    DataStructuresStudents fall2015Students = new DataStructuresStudents();
-    fall2015Students.add(new Student("Anna", "aal2150"));
-    fall2015Students.add(new Student("Joe", "jbc2345"));
-    fall2015Students.add(new Student("Fred", "fgh5678"));
-    System.out.println(fall2015Students);
-    System.out.println("Found student with uni aal2150: " +
-        fall2015Students.lookupByUni("aal2150"));
-  }
+    public static void main(String[] args) {
+        DataStructuresStudents fall2015Students = new DataStructuresStudents();
+        fall2015Students.add(new Student("Anna", "aal2150"));
+        fall2015Students.add(new Student("Joe", "jbc2345"));
+        fall2015Students.add(new Student("Fred", "fgh5678"));
+        System.out.println(fall2015Students);
+        System.out.println("Found student with uni aal2150: " +
+                fall2015Students.lookupByUni("aal2150"));
+    }
 }
