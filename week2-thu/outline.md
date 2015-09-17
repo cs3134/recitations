@@ -11,6 +11,7 @@ Explanation of what GitHub is and does
 
 ## What The Hell Did We Make You Do In `hw0`
 Walkthrough of what we did to in `setup.sh`, including changing remotes. Demonstration of what happened manually (step by step) and why homework pulling works the way it does.
+<p>
 ![alt text](https://github.com/cs3134/recitation-devo/blob/master/week2-thu/git-diagram.png "HW-diagram")
 
 
