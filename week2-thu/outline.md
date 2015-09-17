@@ -27,11 +27,11 @@ Why we need generics? Start with
 StringBuilder, proper IO (using BufferedReader and BufferedWriter)
 
 Inheritance vs Interfaces: What's the difference between the keywords "extends" and "implements"?
-*Both avoid us duplicating a lot of code
-*Inheritance example: Superclass "Animal," instance variables: type, name, age. Subclass "Dog" w/ method "bark()." Code shared traits/methods ONCE, and in sublcass we only have to put what's unique to that type.
+* Both avoid us duplicating a lot of code
+* Inheritance example: Superclass "Animal," instance variables: type, name, age. Subclass "Dog" w/ method "bark()." Code shared traits/methods ONCE, and in sublcass we only have to put what's unique to that type.
 
-*Interfaces example: Interface "ModeOfTransportation." Classes that implement ModeOfTransportation: Train, Plane, FerryBoat, Car. All have setDestination() boardPassengers(), depart(), changeSpeed(int newSpeed), arrive(), disembarkPassengers(), etc etc.
-  *Now, we can do things like make a Travel class that has methods like goToDestination(String destination) and returnHome(). This removes SO MUCH duplicate code b/c we don't need a separate goToDestination() inside Plane, FerryBoat, etc.
+* Interfaces example: Interface "ModeOfTransportation." Classes that implement ModeOfTransportation: Train, Plane, FerryBoat, Car. All have setDestination() boardPassengers(), depart(), changeSpeed(int newSpeed), arrive(), disembarkPassengers(), etc etc.
+  * Now, we can do things like make a Travel class that has methods like goToDestination(String destination) and returnHome(). This removes SO MUCH duplicate code b/c we don't need a separate goToDestination() inside Plane, FerryBoat, etc.
 
 Private public method idiom (public method accessing private method)
 
