@@ -79,9 +79,9 @@ Code a linked list from scratch yay! Start with
 - `Node.java`
 - `List.java`
 - `Iterator.java`
-- 'BetterList.java'
+- `BetterList.java`
 
-Introduce idea of private classes and hiding implementation details. User shouldn't have access to Node etc. Merge into `LinanList.java`
+Introduce idea of private classes and hiding implementation details. User shouldn't have access to Node etc. Merge into `BetterList.java`
 
 ### Singly Linked List
 
