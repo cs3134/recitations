@@ -1,226 +1,248 @@
 /**
- * LinkedList class implements a doubly-linked list.
- * Adapted from Weiss, Data Structures and Algorithm Analysis in Java. 3rd ed.
- * http://users.cis.fiu.edu/~weiss/dsaajava3/code/SimpleLinkedList.java
+ * LinkedList class implements a singly-linked list. Adapted from Weiss, Data
+ * Structures and Algorithm Analysis in Java. 3rd ed.
+ * http://users.cis.fiu.edu/~weiss/dsaajava3/code/LinkedList.java
  */
-public class LinkedList<T>{
+public class LinkedList<T> implements Iterable<T> {
 
-  private int size;
-  private Node<T> head;
-  private Node<T> tail;
+	private int size;
+	private Node<T> beginMarker;
+	private Node<T> endMarker;
 
-  /**
-   * Doubly-Linked-List Node class
-   */
-  private static class Node<T> {
-    public T data;
-    public Node<T> next;
-    public Node<T> prev;
-    
-    public Node(T d, Node<T> p, Node<T> n) {
-      data = d;
-      next = n;
-      prev = p;
-    }
-  }
+	/**
+	 * This is the doubly-linked list node class.
+	 */
+	private class Node<NodeT> {
+		public Node(NodeT d, Node<NodeT> n) {
+			data = d;
+			next = n;
+		}
 
-  /**
-   * Construct an empty LinkedList.
-   */
-  public LinkedList() {
-    clear();
-  }
+		public NodeT data;
+		public Node<NodeT> next;
+	}
 
-  /**
-   * Make an empty list by making head point to a node with null data.
-   */
-  public void clear() {
-    head = new Node<>(null, null, null);
-    tail = new Node<>(null, head, null);
-    head.next = tail;
-    size = 0;
-  }
+	/**
+	 * Construct an empty LinkedList.
+	 */
+	public LinkedList() {
+		clear();
+	}
 
-  /**
-   * Returns the number of nodes in the list
-   */
-  public int size() {
-    return size;
-  }
+	/**
+	 * Change the size of this collection to zero by initializing the beginning
+	 * and end marker.
+	 */
+	public void clear() {
+		beginMarker = new Node<T>(null, null);
+		endMarker = new Node<T>(null, null);
+		beginMarker.next = endMarker;
+		size = 0;
+	}
 
-  /**
-   * Returns true if list is empty, false otherwise.
-   */
-  public boolean isEmpty() {
-    return size() == 0;
-  }
+	/**
+	 * @return the number of items in this collection.
+	 */
+	public int size() {
+		return size;
+	}
 
-  /**
-   * Gets the Node at position index, which must range from lower to upper.
-   * @param index index to search at.
-   * @param lower lowest valid index.
-   * @param upper highest valid index.
-   * @return internal node corresponding to index.
-   * @throws IndexOutOfBoundsException if index is not between lower and
-   * upper, inclusive.
-   */
-  private Node<T> getNode(int index, int lower, int upper) {
-    Node<T> current;
+	/**
+	 * @return boolean indicating if the linked list is empty
+	 */
+	public boolean isEmpty() {
+		return size == 0;
+	}
 
-    if (index < lower || index > upper)
-      throw new IndexOutOfBoundsException("getNode index: " + index
-          + "; size: " + size());
+	/**
+	 * Gets the Node at position idx, which must range from lower to upper.
+	 * When index = -1, returns head. When index = size+1, returns tail.
+	 * NOTE: Notice how this is different from the getNode in the homework?
+	 * Can you figure out why?
+	 * @param idx index to search at.
+	 * @param lower lowest valid index.
+	 * @param upper highest valid index.
+	 * @return internal node corresponding to idx.
+	 * @throws IndexOutOfBoundsException if index is not between lower and
+	 * upper, inclusive.
+	 */
+	private Node<T> getNode(int idx, int lower, int upper) {
+		Node<T> p;
 
+		if (idx < lower || idx > upper)
+			throw new IndexOutOfBoundsException("getNode index: " + idx + ";"
+					+ "size: " + size());
+		p = beginMarker;
+		for (int i = -1; i < idx; i++)
+		    p = p.next;
+		
+		return p;
+	}
 
-    if (index < size() / 2) { // Search through list from the beginning
-      current = head.next;
-      for (int i = 0; i < index; i++)
-        current = current.next;
-    } else { // search through the list from the end
-      current = tail;
-      for (int i = size(); i > index; i--)
-        current = current.prev;
-    }
-    return current;
-  }
-  
-  /**
-   * Gets the Node at position index, which must range from 0 to size( ) - 1.
-   * 
-   * @param index index to search at.
-   * @return internal node corresponding to index.
-   * @throws IndexOutOfBoundsExceptionif index is out of range.
-   */
-  private Node<T> getNode(int index) {
-    return getNode(index, 0, size() - 1);
-  }
+	/**
+	 * Gets the Node at position idx, which must range from 0 to size( ) - 1.
+	 * @param idx index to search at.
+	 * @return internal node corresponding to idx.
+	 * @throws IndexOutOfBoundsException if index is out of range.
+	 */
+	private Node<T> getNode(int idx) {
+		return getNode(idx, 0, size() - 1);
+	}
 
-  /**
-   * Returns the item at position index.
-   * @param index the index to search in.
-   * @throws IndexOutOfBoundsException if index is out of range.
-   */
-  public T get(int index) {
-    return getNode(index, 0, size - 1).data;
-  }
+	/**
+	 * Returns the item at position idx.
+	 * @param idx the index to search in.
+	 * @throws IndexOutOfBoundsException if index is out of range.
+	 */
+	public T get(int idx) {
+		return getNode(idx).data;
+	}
 
-  /**
-   * Changes the data at the given index. Returns the old data.
-   * @param index the index to change.
-   * @param newData to store.
-   * @return the old data.
-   */
-  public T set(int index, T newData) {
-    Node<T> node = getNode(index);
-    T oldData = node.data;
+	/**
+	 * Changes the item at position idx.
+	 * 
+	 * @param idx the index to change.
+	 * @param newVal the new value.
+	 * @return the old value.
+	 * @throws IndexOutOfBoundsException if index is out of range.
+	 */
+	public T set(int idx, T newVal) {
+		Node<T> p = getNode(idx);
+		T oldVal = p.data;
+		p.data = newVal;
+		return oldVal;
+	}
 
-    node.data = newData;
-    return oldData;
-  }
+	/**
+	 * Adds an item in front of node p, shifting p and all items after it one
+	 * position to the right in the list.
+	 * @param p Node to add before.
+	 * @param x any object.
+	 * @throws IndexOutOfBoundsException if idx < 0 or idx > size()
+	 */
+	private void addAfter(Node<T> p, T x) {
+		Node<T> newNode = new Node<T>(x, p.next);
+		p.next = newNode;
+		size++;
+	}
 
-  /**
-   * Adds an item in front of node p, shifting p and all items after it one
-   * position to the right in the list.
-   * @param p Node to add before.
-   * @param x any object.
-   * @throws IndexOutOfBoundsException if index < 0 or index > size()
-   */
-  private void addBefore(Node<T> node, T x) {
-    Node<T> newNode = new Node<>(x, node.prev, node);
-    newNode.prev.next = newNode;
-    node.prev = newNode;
-    size++;
-  }
+	/**
+	 * Adds an item at specified index. Remaining items shift up one index.
+	 * Note that when idx is -1, getNode returns head; for size+1, returns tail.
+	 * @param x any object.
+	 * @param idx position to add at.
+	 * @throws IndexOutOfBoundsException if idx < 0 or idx > size()
+	 */
+	public void add(int idx, T x) {
+        addAfter(getNode(idx-1, -1, size()-1), x);
+	}
 
-  /**
-   * Adds an item at specified index. Remaining items shift up one index.
-   * @param x any object.
-   * @param index position to add at.
-   * @throws IndexOutOfBoundsException if index < 0 or index > size()
-   */
-  public void add(int index, T x) {
-    addBefore(getNode(index, 0, size()), x);
-  }
+	/**
+	 * Adds an item to this collection, at the end.
+	 * @param x any object.
+	 */
+	public void add(T x) {
+		add(size(), x);
+	}
 
-  /**
-   * Adds to the end of the list.
-   * @param x any object.
-   */
-  public void add(T x) {
-    add(size(), x);
-  }
+	/**
+	 * Removes the object contained in Node p.
+	 * NOTE: see how slow this is compared to remove(Node<T> p) in your hw?
+	 * Can you figure out why?
+	 * @param p the Node containing the object.
+	 * @return the item was removed from the collection.
+	 */
+	private T remove(Node<T> p) {
+		Node<T> current = beginMarker;
+		//Look through to find the node whose next is p
+		while (current.next.data != null && current.next.data != p.data) {
+			current = current.next;
+		}
+		//Now delete p
+		current.next = p.next;
+		size--;
+		return p.data;
+	}
 
-  /**
-   * Removes the object contained in Node p.
-   * @param node the Node containing the object.
-   * @return the item was removed from the collection.
-   */
-  private T remove(Node<T> node) {
-    node.next.prev = node.prev;
-    node.prev.next = node.next;
-    size--;
-    return node.data;
-  }
+	/**
+	 * Removes an item from this collection.
+	 * @param idx the index of the object.
+	 * @return the item was removed from the collection.
+	 */
+	public T remove(int idx) {
+		return remove(getNode(idx));
+	}
 
-  /**
-   * Removes the node at given index and returns the data at that node.
-   */
-  public T remove(int index) {
-    return remove(getNode(index));
-  }
-  
-  /**
-   * Obtains an Iterator object used to traverse the collection.
-   * @return an iterator positioned prior to the first element.
-   */
-  public java.util.Iterator<T> iterator() {
-    return new LinkedListIterator();
-  }
-  
-  /**
-   * This is the implementation of the LinkedListIterator. It maintains a
-   * notion of a current position and of course the implicit reference to the
-   * SimpleLinkedList.
-   */
-  private class LinkedListIterator implements java.util.Iterator<T> {
-    private Node<T> current = head.next;
-    private boolean okToRemove = false;
+	/**
+	 * Returns a String representation of this collection.
+	 */
+	public String toString() {
+		StringBuilder sb = new StringBuilder("[ ");
+		for (T x : this) {
+			sb.append(x + " ");
+		}
+		sb.append("]");
+		return new String(sb);
+	}
 
-    public boolean hasNext() {
-      return current != tail;
-    }
+	/**
+	 * Obtains an Iterator object used to traverse the collection.
+	 * @return an iterator positioned prior to the first element.
+	 */
+	public java.util.Iterator<T> iterator() {
+		return new LinkedListIterator();
+	}
 
-    public T next() {
-      if (!hasNext())
-        throw new java.util.NoSuchElementException();
+	/**
+	 * This is the implementation of the LinkedListIterator. It maintains a
+	 * notion of a current position and of course the implicit reference to the
+	 * LinkedList.
+	 */
+	private class LinkedListIterator implements java.util.Iterator<T> {
+		private Node<T> prev = beginMarker;
+		private Node<T> current = beginMarker.next;
+		private boolean okToRemove = false;
 
-      T nextItem = current.data;
-      current = current.next;
-      okToRemove = true;
-      return nextItem;
-    }
+		public boolean hasNext() {
+			return current != endMarker;
+		}
 
-    public void remove() {
-      if (!okToRemove)
-        throw new IllegalStateException();
+		public T next() {
+			if (!hasNext())
+				throw new java.util.NoSuchElementException();
 
-      LinkedList.this.remove(current.prev);
-      okToRemove = false;
-    }
-  }
+			T nextItem = current.data;
+			prev = current;
+			current = current.next;
+			okToRemove = true;
+			return nextItem;
+		}
 
-  /**
-   * Returns the list as a string (ex: "[1, 2, 3, 4, 5]").
-   */
-  public String toString() {
-    String output = "[";
-    Node<T> current = head.next; //skip sentinel node
-    //add first n-1 items followed by a comma
-    while (current.next.next != null) {
-      output += current.data + ", ";
-      current = current.next;
-    } //now add last item
-    output += current.data + "]";
-    return output;
-  }
+		public void remove() {
+			if (!okToRemove)
+				throw new IllegalStateException();
+
+			LinkedList.this.remove(prev);
+			// ensures that remove() cannot be called twice during a single step
+			// in iteration
+			okToRemove = false;
+		}
+	}
+
+	/**
+	 * Test the linked list.
+	 */
+	public static void main(String[] args) {
+		LinkedList<Integer> lst = new LinkedList<>();
+
+		for (int i = 0; i < 10; i++)
+			lst.add(i);
+		for (int i = 20; i < 30; i++)
+			lst.add(0, i);
+
+		lst.remove(0);
+		lst.remove(lst.size() - 1);
+
+		System.out.println(lst);
+	}
 }
