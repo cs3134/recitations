@@ -4,13 +4,18 @@
 
 Expanation on the concepts of git
 
+***
+
 ## What is GitHub
 
 Explanation of what GitHub is and does
 
-## What The Hell Did We Make You Do In `hw0`
+***
 
+## What The Hell Did We Make You Do In `hw0`
 Walkthrough of what we did to in `setup.sh`, including changing remotes. Demonstration of what happened manually (step by step) and why homework pulling works the way it does.
+
+***
 
 ## Java Coding Review (Stuff You Should Know)
 
@@ -21,6 +26,8 @@ Why we need generics? Start with
 - `BoxString.java` that contains a String and outputs the item
 - `BoxInteger.java` that contains an integer, but does the same thing
 - `BoxGeneric.java` that uses generics to handle any type of data
+
+***
 
 ## Java Best Practices (Stuff You Would Want To Know)
 
@@ -37,6 +44,8 @@ Inheritance vs Interfaces: What's the difference between the keywords "extends" 
 
 Private public method idiom (public method accessing private method)
 
+***
+
 ## Abstract Data Types and Data Structures
 
 ADT Examples: Stack, queue, etc.
@@ -44,6 +53,8 @@ ADT Examples: Stack, queue, etc.
 DataStructures: LinkedList, Tree, arrays
 
 An abstract data type is kind of like an theoretical interface. All stacks must be able to pop/push, and are always FIFO. But, I could implement a stack use many data structures--LinkedList, array,etc. Some data structures will make more sense for implementing a given ADT, but nonetheless the ADT could probably be implemented in many ways.
+
+***
 
 ## Linked List
 
