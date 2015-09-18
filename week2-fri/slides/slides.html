@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Recitation Week 2
+## Data Structures CS3134
+
+---
+
+## Topics Covered
+
+- Git
+  - What is Git
+  - what is GitHub
+  - What the hell did we make you do in `hw0`
+- Java Coding Review
+  - (Live coding) Stuff you should know
+  - (Live coding) Stuff you would want to know (best practices)
+- Abstract Data Types and Data Structures
+- Linked List
+  - (Live coding) Noob Linked List
+  - (Live Coding) Singly Linked List
+  - (Live Coding) Doubly Linked List
+  - Common Linked List Problems (hint hint interviews)
+
+---
+
+## Who Is This For
+
+- If you have only taken 1004.
+- If you feel like you need a refresher on Java
+
+## Who Is This Not For
+
+If you know what these are
+
++ Inheritance
++ Interfaces
++ Generics
++ You eat Java for breakfast
++ You talk in Java
++ You flirt in Java
++ Java is love, Java is life
+
+---
+
+class: center, middle
+
+# Git
+
+---
+
+## What is Git
+
+Git is a version control system (VCS).
+
+### Why the hell do we need VCS?
+
+Remember this?
+
+```
+document_v1.txt
+document_v2.txt
+document_v3.txt
+document_draft_final.txt
+document_final_final.txt
+document_final_iswearthisisfinal.txt
+document_nopenotreally_final.txt
+document_quitandgiveuponlife.txt
+IDIOT_TEAMMATE_WHO_RENAMES+SHIT_doc.txt
+```
+
+Then you finally decide to use Google Docs and marvel at it, only to realize that you can't work on your own idea without your team mates interfering?
+
+**VCS solves this.**
+
+---
+
+## What you need to know about Git
+
+```
+local <------> GitHub
+(master)       (origin)
+```
+
+In Git, you hold on to a local "copy" of your code that lives on a server (for us, its GitHub).
+
+You make modification to your local code, then tell Git "hey I'm ready", and Git will push your changes to GitHub.
+
+---
+
+## What you need to know about Git
+
+How do you tell Git "hey I'm ready?"
+
+Home viewers, read this: [https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository](https://git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository). People who are here get a demo!
+
+Recap:
+
+```
+git clone
+git status
+git add
+git commit
+git push
+git pull
+```
+
+---
+
+## What is GitHub
+
+Think of it as a very very very very (I cannot have enough respect for those guys) store room for your git repositories.
+
+### What did GitHub add on?
+
+- Permissions
+- Teams
+- A very very very nice UI
+- Webhooks
+
+---
+
+## What did we do in `setup.sh`
+
+```sh
+#!/bin/bash
+
+if [ -z "$1" ]
+  then
+    echo "Enter your uni as an argument eg."
+    echo "sh setup.sh ab1234"
+    exit 1
+fi
+
+git clone https://github.com/cs3134/homework-master.git
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+First giant `if` chunk just checks if you entered your UNI. Let's say you entered your uni as `lq2137`
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+```
+
+What was done here?
+
+```sh
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+```
+
+We cloned `homework-master` from `cs3134`. What's the problem with that?
+
+```sh
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+```
+
+We cloned `homework-master` from `cs3134`. What's the problem with that?
+
+```
+|local| <-------> |homework-master|
+(master)          (origin)
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+```
+
+We want it to be like this. However, Git doesn't recognize `homework-master` or `homework-lq2137` as valid "names". So we reassign their names:
+
+From:
+```
+|local| <-------- |homework-master|
+(master)    |     (origin)
+            |
+            |
+            |---> |homework-lq2137|
+```
+
+To:
+```
+|local| <-------- |homework-master|
+(master)    |     (upstream)
+            |
+            |
+            |---> |homework-lq2137|
+                  (origin)
+```
+
+The rest of `setup.sh` basically does this renaming and adding of repos.
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+mv homework-master homework-$1
+cd homework-$1
+```
+
+What did we do here?
+
+```sh
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+```
+
+What did we do here?
+
+```sh
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+```
+
+What did we do here?
+
+```sh
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+```sh
+git clone https://github.com/cs3134/homework-master.git
+mv homework-master homework-$1
+cd homework-$1
+echo "Original remote -v setup"
+git remote -v
+git remote rename origin upstream
+echo "Renamed remote -v setup"
+git remote -v
+git remote add origin https://github.com/cs3134/homework-$1
+echo "Final remote -v setup"
+git remote -v
+```
+
+What did we do here?
+
+```sh
+git add --all
+git commit -m "first commit made from setup.sh"
+git push -u -f origin master
+```
+
+---
+
+class: center, middle
+
+# Java Coding Review
+## Stuff you should know
+
+---
+
+### What is a compiler?
+
+* Broadly speaking, a compiler is a computer program that transforms source code (like the `.java` files you will write for class) written in a programming language such as Java, C, or C++, into a lower level language that computers can understand (e.g. machine code or assembly language).
+* The reason that you have compile-time errors is that this is the point when the compiler is translating the source code into machine code-- if you have a set of instructions that doesn't make sense in one language, it follows that they will generate an error in translation.
+
+---
+
+### How does this work in Java?
+
+* When you compile your code, the job is done by the Java compiler, which takes in your `.java` files and spits out `.class` files, which contain Java bytecode.
+* The Java Virtual Machine (JVM) loads the class files and compiles it to machine code which is read by your hardware.
+* Note: Java bytecode is universal, but your JVM is machine-specific.
+
+To run a Java program
+
+```Java
+javac Test.java   // compile .java files into .class files
+java Test         // invoke the Java virtual machine with the command java
+```
+
+### Do you always need a compiler?
+
+For Java yes. However, there are languages that do not need a copmiler. They are called **interpreted languages**. Good examples are Python, JavaScript. Oh I love JavaScript.
+
+---
+
+### Primitives
+- byte, short, int, long, float, double, boolean, and char
+- casting between primitives
+  - widening vs. narrowing: implicit widening, explicit narrowing
+  - implicit/explicit casting
+
+```java
+int a = 3;
+long b = a;
+double c = a;
+```
+
+Implicit casting:
+```java
+double i = 1.0;
+int j = i;
+```
+
+eg.
+- Java cannot implicitly cast to `int` from `double` -- narrowing
+- Java cannot implicitly cast an `int a` to `char c` -- also narrowing
+
+---
+
+Implicit/Explicit casting:
+
+```java
+int y = 2;
+double x = y; //what is x?
+int z = (int) x; //what is z?
+```
+
+Yes, you can explicitly cast to  `int` from `double`
+
+---
+
+### Classes
+- Programmer defined data type
+- Class has instance variables and methods
+- Class also has static variables and methods (difference?)
+
+```java
+public class Pokemon {
+  public String name1;
+  private String name2;
+
+  // public static int level = 0;
+
+  public Pokemon(String name) {
+    this.name1 = name;
+    this.name2 = name;
+  }
+
+  public void setName2(String name2) {
+    this.name2 = name2;
+  }
+
+  public int getName2() {
+    return name2;
+  }
+}
+```
+
+---
+
+### Objects
+
+Objects are instances of classes
+
+```java
+public static void main(String[] args) {
+  Pokemon pikachu = new Pokemon("pikachu");
+  Pokemon bulbasaur = new Pokemon("bulbasaur");
+}
+
+```
+
+`pikachu` is a reference to a Pokemon object. So is `bulbasaur`
+
+Which else are reference types?
+
+- `String`
+- `Scanner`
+- `float`
+- `Iterator`
+- `Iterable`
+- `int[]`
+- `String[][]`
+
+---
+
+### Working with references and primitives:
+
+```java
+public class Test {
+  public static void increment(int n) {
+    n++;
+  }
+
+  public static void increment(Box box) {
+    box.number++;
+  }
+
+  public static void main(String[] args)
+  {
+    int a = 1;
+    increment(a);
+    System.out.println(a); // ?
+
+    Box box = new Box(1);
+    increment(box);
+    System.out.println(box.number); // ?
+  }
+}
+
+public class Box {
+  public int number;
+
+  public Box(int number) {
+    this.number = number;
+  }
+}
+```
+
+---
+
+### Interfaces
+
+```java
+public class NYUStudent {
+  public int runTest() {
+    // does something
+  }
+}
+
+public class CUStudent {
+  public int doesTest() {
+    // does something
+  }
+}
+
+public class GraduateSchool {
+  public void admitNYUStudent(NYUStudent student) {
+    student.runTest();
+  }
+
+  public void admitCUStudent(CUStudent student) {
+    student.doesTest();
+  }
+
+  // imagine implementing compare
+}
+```
+
+You need a "standard contract" for Students.
+
+---
+
+An interface is a **contract**. It guarantees that whoever "implements" the interface will have the specified methods. Other classes "interface" with these implementing classes via the specified methods, hence they're called interfaces.
+
+```java
+public interface Student {
+  public int doTest();
+}
+
+public class NYUStudent implements Student {
+  public int doTest() {
+    // does something
+  }
+}
+
+public class CUStudent implements Student {
+  public int doTest() {
+    // does something. may be a different test from NYU doesn't matter.
+  }
+}
+
+public class GraduateSchool {
+  public void admitStudent(Student student) {
+    student.doTest();
+  }
+}
+```
+
+---
+
+An example of a class that implements the Comparable interface:
+
+```Java
+public class Person implements Comparable<Person> {
+  protected String firstName, lastName;
+
+  public Person(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public String firstName() {
+    return this.firstName;
+  }
+
+  public String lastName() {
+    return this.lastName;
+  }
+
+  public int compareTo(Person that) {
+    return this.lastName().compareTo(that.lastName());
+  }
+
+  public static void main(String[] args) {
+    Person john = new Person("Linan", "Qiu");
+    Person mark = new Person("Daniel", "Bauer");
+    System.out.println(john.compareTo(mark));
+  }
+}
+```
+
+---
+
+## Inheritance
+
+Subclasses...
+
+Recall the previous Person class. We can write a subclass that represents
+a student object:
+
+```Java
+public class Kid extends Person {
+  protected String school;
+
+  public Kid(String firstName, String lastName, String school) {
+    super(firstName, lastName); // calls constructor of super class
+    this.school = school;
+  }
+
+  public String school() {
+    return this.school;
+  }
+}
+```
+
+---
+
+### Generics
+
+In Java, generics allow us to specify things about the type of objects during runtime.
+
+Generics are **lies**. The compiler basically does a *find and replace** operation during compilation. They exist only to save us time.
+
+Why we need generics? Start with
+
+- `BoxString.java` that contains a String and outputs the item
+- `BoxInteger.java` that contains an integer, but does the same thing
+- `BoxGeneric.java` that uses generic
+
+---
+
+class: center, middle
+
+# Java Coding Review
+## Stuff you'd want to know
+
+---
+
+## Being a Good Coder
+
+Being a good coder extends being a good person. So be a good person first before writing good code. That means: **Don't be a bro-grammer**
+
+![./img/brogrammer.jpg](./img/brogrammer.jpg)
+
+---
+
+class: center, middle
+
+See your code through thoroughly. If coding was sex, there would be many unsatisfied partners. Don't just write code halfway, test for very few cases, then leave it to the next guy (or hand it in). Finishing means tested, documented, committed.
+
+---
+
+## Being a Good Java Coder
+
+Now that you're a cool person, let's see some common Java tips to up your Java-fu.
+
+### Comments
+
+Comment a lot. In javadoc format and inline. Nothing much to be said there. Throw in some humor every now and then.
+
+### Indents and Formatting
+
+If you use an IDE, you have no excuse. Do it.
+
+Do not use `tab` for indents. Instead, use spaces. Eclipse can convert that for you automatically. Use **two** spaces instead of **four** so that code shows up beautifully on GitHub.
+
+---
+
+### String Manipulation
+
+This is one of the most common tasks ever. Almost 80% (untested statistic) of the work you do involves manipulating strings. Do this the wrong way and you'll be in lots of late nights.
+
+---
+
+```Java
+public class Pikachu {
+
+    private String name;
+    private int level;
+    private String[] moves;
+
+    public Pikachu(String name, int level, String[] moves) {
+        this.name = name;
+        this.level = level;
+    }
+
+    // bad toString()
+    public String toString() {
+        String returnString = name + "\n";
+        returnString = returnString + level + "\n";
+        for(int i = 0 ; i < moves.length; i++) {
+            returnString = returnString + moves[i] + "\n";
+        }
+
+        return returnString;
+    }
+}
+```
+
+What's wrong with this `toString()` method? Well, whenever you do something like this
+
+```Java
+String a = "hello";
+a = a + " world";
+```
+
+---
+
+You are essentially copy over the original string, creates a second " world" string, then joining the two together. This may be fine for small strings, but imagine that our Pikachu has 1000 moves. Then you'll be copying ever increasing lengths of strings, doing a lot of duplicate work. Poor Pikachu would die of exhaustion if you used that method. In fact, this is `O(n^2)`
+
+---
+
+Instead, use the `StringBuilder` class.
+
+```Java
+public class Pikachu {
+
+    private String name;
+    private int level;
+    private String[] moves;
+
+    public Pikachu(String name, int level, String[] moves) {
+        this.name = name;
+        this.level = level;
+    }
+
+    // bad toString()
+    public String toString() {
+        StringBuilder sb = new StringBuilder(moves.length * 16); // estimated length
+        sb.append(name);
+        sb.append("\n");
+        sb.append(level);
+        sb.append("\n");
+        for(String move : moves) {
+            sb.append(move);
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+}
+```
+
+Each `append()` operation is `O(1)`. This makes the entire string building process `O(n)` instead of `O(n^2)`
+
+---
+
+### Truth Statements
+
+#### Testing for Truth
+
+Let's say we were testing for Pokemon types.
+
+```Java
+public static void main(String[] args) {
+    Pokemon bulbasaur = new Pokemon(5, "grass");
+
+    if(bulbasaur.isGrass() == true) {
+        System.out.println("This is a grass pokemon!");
+    } else {
+        System.out.println("This is not a grass pokemon!");
+    }
+}
+```
+
+---
+
+There's nothing really wrong in the execution of this code. However, whenever you find yourself writing `someTest() == true` or `someOtherTest() == false`, you're being redundant. It makes for a rather bad reading experience. Instead, just write
+
+```Java
+if(bulbasaur.isGrass()) {
+    System.out.println("This is a grass pokemon!");
+} else {
+    System.out.println("This is not a grass pokemon!");
+}
+```
+
+---
+
+#### Returning Truth Statements
+
+Let's say you have a method that returns a boolean.
+
+```Java
+public boolean isOwned(Pokemon other) {
+    if(other.level > this.level) {
+        return true;
+    } else {
+        return false;
+    }
+}
+```
+
+This is again not wrong, but we can shorten it to make it a little more elegant.
+
+```Java
+public boolean isOwned(Pokemon other) {
+    return (other.level > this.level);
+}
+```
+
+So much more pleasing to the eye!
+
+---
+
+#### Ternary Operators
+
+Finally, we can make things even shorter using the ternary operator. The ternary operator is basically a shorter way of writing if else.
+
+First, you should realize that all if else statements are basically questions with two responses -- one for yes and one for no. Say you ask me if I were a TA. If yes, you'd ask me a question. If not, you'd walk off.
+
+---
+
+That's what the ternary operator does.
+
+```Java
+question ? yesResponse : noResponse
+```
+
+For example, if I have a function called `isEven()`, I could write it this way.
+
+```Java
+public void isNegative(int pokemonLevel) {
+    if(pokemonLevel < 0) {
+        System.out.println("WTF!");
+    } else {
+        System.out.println("Yay!");
+    }
+}
+```
+
+Instead, I could write
+
+```Java
+public void isNegative(int pokemonLevel) {
+    (pokemonLevel < 0) ? System.out.println("WTF!") : System.out.println("Yay!");
+}
+```
+
+---
+
+The awesome thing about the ternary operator is that we can use it for **assignments**
+
+```Java
+int correctedLevel = (pokemonLevel < 0) ? -pokemonLevel : pokemonLevel;
+```
+
+Here, I'm testing if `pokemonLevel` is negative. If it is, I apply a negative sign to the number, hence making it positive. If it is not, I use it as it is. **The ternary operator then returns the result of this if-else condition**, giving me the right level for my pokemon.
+
+---
+
+### Input Output
+
+Almost 80% (again untested) of the work you do involves input and output. In 1004, you learned how to use `Scanner`. Generally, try not to use it, especially if you're pretty sure about the kind of data you're going to get. Why? Because `Scanner` is slow. It does a lot of preprocessing for the data (how else does it know whether the next guy is a `double`, `int` etc.)
+
+How then do you deal with input and output? Easy! Use input and output streams.
+
+---
+
+#### Reading a File
+
+```Java
+BufferedReader br = new BufferedReader(new FileReader("pikachu.txt"));
+String line;
+
+while((line = br.readLine()) != null) {
+    System.out.println(line);
+    // use StringBuilder if you want to store this data
+}
+
+br.close(); // remember to close!
+```
+
+Woah that's a huge chunk right there. Let's break it down.
+
+---
+
+First, what the hell is the difference between `BufferedReader` and `FileReader` and why are we using the two wrapped around each other? Well, think of your FileReader as the water fountain at the ground floor of your dorm. It has access to an external stream (literally a stream). You are living on the 10th floor of the building.
+
+Now you have two choices
+
+- Hold a mug, and every time you need some water, run downstairs and get it. That means you'll have to wear some decent clothes, take a lift, get the water, go back up, and go into your PJs.
+- Or... you can grab a big ass bucket, go fetch a lot of water at one go, bring it to your room, and fetch water from that bucket every time you need water using your mug.
+
+---
+
+Obviously the second is going to be a lot faster since you make only one trip to the ground floor. Same concept here.
+
+The file you're reading resides on the hard disk. The hard disk is slow as f*** compared to the memory of your computer. So you want to minimize the number of times you query the hard disk. So yes, you could just read from `FileReader` directly, but every time you do that, you'll have to access the hard disk once. Instead, by wrapping the `FileReader` in `BufferedReader` you are essentially telling `BufferedReader` to grab data in bigger chunks from the hard disk. Then, you can read from the `BufferedReader`. When the `BufferedReader` is out of stuff (just like your bucket is empty), it will go grab more data. In this way, we minimize the number of times we query the hard disk, saving you precious time.
+
+---
+
+Then, what about this line `while((line = br.readLine()) != null)`? That seems like a huge chunk. Well, what's happening is really simple. `line = br.readLine()` reads the next line of text (until `\n`) and passes that data to `line`. That's what's happening in the `(line = br.readLine())` bracket. This bracket actually returns a variable (every `=` assignment returns the variable on the left). `line` getes returned, and we test if the newly polished `line` is equal to `null`. What does this mean? Well, `BufferedReader` simply returns null to `readLine()` if there's nothing else to be read. Hence, in the last run, you would have assigned `line` to null. Then we would test for it in the while condition. Then, we would stop reading. So basically it's just a mechanism to read till the end of the file.
+
+---
+
+#### Reading from `stdin`
+
+Hang on, what the hell is `stdin`? Basically your keyboard. Remember when you used to like `Scanner s = new Scanner(System.in)`? That `System.in` is basically `stdin` in comp-sci-speak.
+
+---
+
+So how do we read from your keyboard instead of a file? Well, turns out its pretty much the same.
+
+```Java
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String line;
+
+while((line = br.readLine()) != null) {
+    System.out.println(line);
+}
+
+br.close(); // remember to close!
+```
+
+You're simply specifying an `InputStreamReader` that listens to `System.in`, just like you did in `Scanner`.
+
+The rest of the code logic stays the same.
+
+---
+
+#### Writing to File
+
+How would you write to a file then?
+
+```Java
+BufferedWriter bw = new BufferedWriter(new FileOutputStream("file.txt"));
+bw.write("I'm sick of being in a pokeball");
+bw.close();
+```
+
+---
+
+Pretty much the same stuff. Again, we're wrapping the output stream in a buffer. Just like you won't want to go down to the professor's office to hand in a new sheet of paper every time you finish writing one (you'd probably wait till you're done writing everything), we use a buffer to wrap the output stream.
+
+However, do remember that **you need to close the stream**. I didn't emphasize this too much for the reader because it doesn't face the same issue, but do remember that if you don't close the BufferedWriter, some stuff could still be left in the buffer. What do I mean?
+
+Imagine you're writing homework. You leave pages on your table till you're done with a certain amount, then you hand those in to the professor. Without close, even after you're done writing everything, if the pile on your table isn't high enough, you won't go and hand those in. That's silly isn't it? So closing the `BufferedWriter` forces the writer to empty its buffer, essentially spilling out that last chunk of stuff.
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
