@@ -110,7 +110,7 @@ So, we merge into `BetterList.java`.
 
 * BUT delete(T x) is still O(n) for double-linked lists because we need to find the node whose data is "x"
 
-* Reverse is kind of more fun: just swap each node's next and prev (remember to use a temp!). Still O(n) but easier to think about and doesn't make you draw a bunch of absurd diagrams to make sure you're not botching it (but still, it would definitely be a good idea for you to try writing pseudocode for HOW you would do this for a singly-linked list b/c it would be great partice for the class/interviews).
+* Reverse is kind of more fun/easier to think about for a doubly-linked list. Can you think how we could do this? Still O(n), like it is for singly-linked list, but much easier to think about. For a singly-linked list, I always have to raw a bunch of absurd diagrams to make sure I'm not botching it (but still, it would definitely be a good idea for you to try writing pseudocode for HOW you would do this for a singly-linked list b/c it would be great practice for the class/interviews).
 
 * Of course, we now have more modifications we need to make when we insert/mess with the list, but it's generally worth it.
 
