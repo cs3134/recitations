@@ -119,11 +119,9 @@ So, we merge into `BetterList.java`.
 ### Common Problems and Strategies
 
 ####Circular linked list
-Last Node's next is the first node
+Last Node's next is the first node (i.e. tail.next == head).
 * Don't have to worry about moving off the end of the list (null pointers). It's always okay to derefence node.next.data 
 * When we insert and delete, it's all the same. No first/list problems.
-* Kind of cool: Let's say my iterator object is at the last item and I want to now go to the second item. We can just do "iterator.next(); iterator.next();" without making a new iterator.
-
 
 ####Finding mid point in a singly linked list / doubly linked list (when you don't know size)
 * Singly-Linked: i = head; j = head; increment i every time, j every other time until i hits the end of the list
