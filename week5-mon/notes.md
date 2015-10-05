@@ -90,7 +90,7 @@ public static int countNodesInTree(BinaryTreeNode n) {
 ####Preorder: Root, Left subtree, Right subtree (recursively)
 
 ```bash
-// an preOrderTraversal that prints the list
+// A preOrderTraversal that prints the list
 public static void preOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
 
@@ -111,7 +111,7 @@ public static void preOrderTraversal(BinaryTreeNode n) {
 ####Inorder: Left subtree, Root, Right subtree
 
 ```bash
-// an inOrderTraversal that prints the list
+// An inOrderTraversal that prints the list
 public static void inOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
       inOrderTraversal(n.left); // recurse on left subtee
@@ -124,7 +124,7 @@ public static void inOrderTraversal(BinaryTreeNode n) {
 ####Postorder: Left subtree, Right subtree, root
 
 ```bash
-// an postOrderTraversal that prints the list
+// A postOrderTraversal that prints the list
 public static void postOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
       postOrderTraversal(n.left); // recurse on left subtree
