@@ -157,6 +157,26 @@ public static void LevelOrderTraversal (BinaryTreeNode n) {
 Here, we're working in terms of horizontal tree levels, rather than tackling the problem by breaking into subtrees, so instead of recursing, we use a queue.
 
 
+Comparison of the traversals:
+
+![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/pre-order.png)
+Image source: https://en.wikipedia.org/wiki/Tree_traversal
+
+
+![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/in-order.png)
+Image source: https://en.wikipedia.org/wiki/Tree_traversal
+
+
+![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/post-order.png)
+Image source: https://en.wikipedia.org/wiki/Tree_traversal
+
+
+![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/level-order.png)
+Image source: https://en.wikipedia.org/wiki/Tree_traversal
+
+
+
+
 ###Binary Search Trees
 
 All nodes in left child subtree have smaller data than current node. All nodes in right child subtree have larger data than current subtree. We sort by comparing the "key" value of a node. If our tree holds integers, we'd just compare the ints. If our tree holds BankAccount objects, maybe the "key" that we sort by is the account balance (the idea is that for objects that don't have an inherent order, you're going to have to decide how to compare them. You'll probably want to implement comparable (i.e. write a compareTo() method)).
