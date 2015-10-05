@@ -34,9 +34,9 @@ In a general tree, a node can have any number of children. But wait! How can a n
 
 ```bash
 public class GeneralTreeNode<T> {
-	T data; //the info we're storing
-	GeneralTreeNode<T> nextSibling; //here's how we make the linked list
-	GeneralTreeNode<T> firstChild; //pointer to "head" of linked list of children
+	T data; //the info we are storing
+	GeneralTreeNode<T> nextSibling; //here is how we make the linked list
+	GeneralTreeNode<T> firstChild; //pointer to \"head\" of linked list of children
 }
 ```
 
@@ -95,7 +95,7 @@ public static void preOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
 
       // Root. This line depends what you're trying to do with the traversal
-      //Here's we're just printing. Apply whatever you're doing to the root.
+      // Here we are just printing. Apply whatever you are doing to the root.
       System.out.print(t.element + " ");
 
 	  // recurse on left subtree
@@ -114,16 +114,9 @@ public static void preOrderTraversal(BinaryTreeNode n) {
 // an inOrderTraversal that prints the list
 public static void inOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
-
-	  // recurse on left subtree
-      inOrderTraversal(n.left);
-
-      // Root. This line depends what you're trying to do with the traversal
-      //Here's we're just printing. Apply whatever you're doing to the root.
-      System.out.print(n.data + " ");
-
-      // recurse on right subtree
-      inOrderTraversal(n.right);
+      inOrderTraversal(n.left); // recurse on left subtee
+      System.out.print(n.data + " "); // root
+      inOrderTraversal(n.right); // recurse on right subtree
     }
 }
 ```
@@ -134,16 +127,9 @@ public static void inOrderTraversal(BinaryTreeNode n) {
 // an postOrderTraversal that prints the list
 public static void postOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
-
-	  // recurse on left subtree
-      postOrderTraversal(n.left);
-
-      // recurse on right subtree
-      postOrderTraversal(n.right);
-
-      // Root. This line depends what you're trying to do with the traversal
-      //Here's we're just printing. Apply whatever you're doing to the root.
-      System.out.print(t.element + " ");
+      postOrderTraversal(n.left); // recurse on left subtree
+      postOrderTraversal(n.right); // recurse on right subtree
+      System.out.print(t.element + " "); // root
     }
 }
 ```
@@ -220,6 +206,7 @@ private static void inOrderTraversal(BinaryTreeNode n) {
       inOrderTraversal(n.right);
     }
 }
+```
 
 * User doesn't have to pass rootNode -- easier for them, and safer bc we can keep rootNode private. User doesn't need access to this. 
 
