@@ -25,11 +25,7 @@ Some confusing terms people mix up: height vs level/depth.
 
 The **height** of any node is longest path to a leaf. A leaf's height is 0, and the root's height is length of the path from the root to the farthest leaf.
 
-The **level** of a node, which is also sometimes called the depth, is the length of the path from the root to your node. Here, the root's level is 0, and the leaf's level is the number of edges from the leaf to the root.
-
-Here are levels. The height is the opposite. 
-![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/tree-levels.jpg)
-Image source: http://www.gamedev.net/page/resources/_/technical/general-programming/trees-part-1-r1374
+On the flip side, **depth**  of a node is the length of the path from the root to your node. Here, the root's depth is 0, and the leaf's depth is the number of edges from the leaf to the root. Sometimes people use the term **level** as synonymous with depth, othertimes they mean level(anyNode) = depth(anyNode) + 1, so that level(root) = 1 (starting at 1 instead of 0).
 
 
 ### General Trees
@@ -39,9 +35,10 @@ In a general tree, a node can have any number of children. But wait! How can a n
 ```bash
 public class GeneralTreeNode<T> {
 	T data; //the info we're storing
-	GeneralTreeNode nextSibling; //here's how we make the linked list
-	GeneralTreeNode firstChild; //pointer to "head" of linked list of children
+	GeneralTreeNode<T> nextSibling; //here's how we make the linked list
+	GeneralTreeNode<T> firstChild; //pointer to "head" of linked list of children
 }
+```
 
 Here's an example of a general tree using linked lists:
 
@@ -49,6 +46,47 @@ Here's an example of a general tree using linked lists:
 Image source: http://www.gamedev.net/page/resources/_/technical/general-programming/trees-part-1-r1374
 
 ### Binary Trees
+A tree where each node can have a maximum (inclusive) of 2 children. Image a 2-child family cap.
+
+Since a node can only have up to two children, we can now skip the linked list and just have two instance variables to point children: leftChild and rightChild:
+
+```bash
+public class BinaryTreeNode<T>{
+	T data;
+	BinaryTreeNode<T> leftChild;
+	BinaryTreeNode<T> rightChild;
+}
+```
+
+Some binary tree terminology:
+
+A binary tree is **full** if every node has either zero or two children, but not one.
+
+A binary tree is **perfect** / **complete** if it is full *and* all leaves are at the same depth.
+
+Recursion:
+
+A lot of binary tree methods, such as calculateTreeHeight, or countNodesInTree, can be done recursively on subtrees.
+
+For example, the number of nodes in a tree equals 1 + the number of nodes in the root's left child's subtree + the number of nodes in the root's right child's subtree.
+
+So, we could say:
+
+```bash
+public static int countNodesInTree(BinaryTreeNode n) {
+	if (n == null)
+	    return 0;
+	else
+	    return (1 + countNodesInTree(n.left) + countNodeInTree(n.right));
+	}
+}
+
+```
+
+###Binary Tree Traversals
+
+
+
 
 
 
