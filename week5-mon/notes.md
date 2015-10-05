@@ -9,7 +9,7 @@ All tree's have a 'root': the 'root' is a special node. It's the one node that d
 
 Here's an example of a tree:
 
-!(/images/tree_example.jpg)
+![alt text](https://github.com/cs3134/recitation-devo/blob/master/week5-mon/images/tree_example.jpg)
 Image source: http://www.powayusd.com/pusdtbes/cs/class4.htm
 
 
