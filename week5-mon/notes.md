@@ -94,7 +94,7 @@ public static int countNodesInTree(BinaryTreeNode n) {
 public static void preOrderTraversal(BinaryTreeNode n) {
 	if (n != null) {
 
-      // Root. This line depends what you're trying to do with the traversal
+      // Root. This line depends on what you are trying to do with the traversal
       // Here we are just printing. Apply whatever you are doing to the root.
       System.out.print(t.element + " ");
 
