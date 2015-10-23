@@ -1,14 +1,9 @@
-public class Pair<K extends Comparable<? super K>, V> implements
-    Comparable<Pair<K, ?>> {
+public class Pair<K, V> {
   public K key;
   public V value;
 
-  public Pair(K theKey, V theValue) {
-    key = theKey;
-    value = theValue;
-  }
-
-  public int compareTo(Pair<K, ?> other) {
-    return key.compareTo(other.key);
+  public Pair(K key, V value) {
+    this.key = key;
+    this.value = value;
   }
 }
